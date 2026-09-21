@@ -4,5 +4,5 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   server: { port: 5173 },
-  base: './', // rutas relativas: el dist/ funciona con doble clic (file://) y al compartirlo
+  base: '/FLoresAmarillas/', // Para GitHub Pages - el repositorio está en una subcarpeta
 })
