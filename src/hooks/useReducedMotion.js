@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react';
 
 export function useReducedMotion() {
-  const [reduced, setReduced] = useState(
-    () => typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  );
+  const [reduced, setReduced] = useState(false); // Animaciones siempre activas
   useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
     const onChange = (e) => setReduced(e.matches);
