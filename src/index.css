@@ -1,0 +1,152 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------- base ---------- */
+html, body {
+  height: 100%;
+  background: #0d0a06;
+  overscroll-behavior: none;
+}
+body {
+  font-family: Outfit, Inter, system-ui, sans-serif;
+  color: #faf3e3;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+::selection { background: rgba(255, 217, 59, 0.35); color: #fff; }
+.font-serif-d { font-family: "Cormorant Garamond", "Playfair Display", Georgia, serif; }
+
+/* ---------- utilidades ---------- */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.mask-fade-b {
+  -webkit-mask-image: linear-gradient(to bottom, black 72%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 72%, transparent 100%);
+}
+
+/* ---------- keyframes (solo transform + opacity) ---------- */
+@keyframes drift {
+  0% { transform: translate3d(0, 0, 0); opacity: 0; }
+  10% { opacity: var(--po, 0.7); }
+  50% { transform: translate3d(var(--dx, 20px), -46vh, 0); }
+  90% { opacity: var(--po, 0.7); }
+  100% { transform: translate3d(calc(var(--dx, 20px) * 1.6), -92vh, 0); opacity: 0; }
+}
+@keyframes sway {
+  0%, 100% { transform: rotate(var(--sway-from, -2.4deg)); }
+  50% { transform: rotate(var(--sway-to, 2.4deg)); }
+}
+@keyframes petal-fall {
+  0% { transform: translate3d(0, -8vh, 0) rotate(0deg); opacity: 0; }
+  8% { opacity: var(--po, 0.9); }
+  50% { transform: translate3d(var(--drift, 30px), 42vh, 0) rotate(200deg); }
+  100% { transform: translate3d(calc(var(--drift, 30px) * -0.6), 108vh, 0) rotate(420deg); opacity: 0; }
+}
+@keyframes petal-float {
+  0% { transform: translate3d(0, 0, 0) rotate(0deg); opacity: 0; }
+  12% { opacity: var(--po, 0.6); }
+  50% { transform: translate3d(var(--dx, 40px), -24vh, 0) rotate(160deg); }
+  88% { opacity: var(--po, 0.6); }
+  100% { transform: translate3d(calc(var(--dx, 40px) * -0.4), -48vh, 0) rotate(320deg); opacity: 0; }
+}
+@keyframes butterfly-path-a {
+  0% { transform: translate(-12vw, 8vh); }
+  25% { transform: translate(18vw, -2vh); }
+  50% { transform: translate(48vw, 6vh); }
+  75% { transform: translate(78vw, -4vh); }
+  100% { transform: translate(112vw, 4vh); }
+}
+@keyframes butterfly-path-b {
+  0% { transform: translate(112vw, 12vh) scaleX(-1); }
+  30% { transform: translate(70vw, 2vh) scaleX(-1); }
+  60% { transform: translate(38vw, 10vh) scaleX(-1); }
+  100% { transform: translate(-14vw, 0vh) scaleX(-1); }
+}
+@keyframes wing-flap {
+  0%, 100% { transform: scaleX(1); }
+  50% { transform: scaleX(0.35); }
+}
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+@keyframes ring-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(255, 205, 80, 0.55), 0 0 32px -4px rgba(255, 200, 60, 0.65); }
+  70% { box-shadow: 0 0 0 18px rgba(255, 205, 80, 0), 0 0 32px -4px rgba(255, 200, 60, 0.65); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 205, 80, 0), 0 0 32px -4px rgba(255, 200, 60, 0.65); }
+}
+@keyframes cloud-drift {
+  from { transform: translateX(-6vw); }
+  to { transform: translateX(6vw); }
+}
+@keyframes spin-slower {
+  to { transform: rotate(360deg); }
+}
+@keyframes twinkle {
+  0%, 100% { opacity: 0.15; transform: scale(0.7); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+@keyframes shoot {
+  0% { transform: translate3d(0, 0, 0) rotate(18deg); opacity: 0; }
+  4% { opacity: 1; }
+  16% { transform: translate3d(-34vw, 15vh, 0) rotate(18deg); opacity: 0; }
+  100% { transform: translate3d(-34vw, 15vh, 0) rotate(18deg); opacity: 0; }
+}
+@keyframes bob {
+  0%, 100% { transform: translateY(-4px); }
+  50% { transform: translateY(5px); }
+}
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+@keyframes grain-shift {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-2%, 1%); }
+  50% { transform: translate(1%, -2%); }
+  75% { transform: translate(-1%, -1%); }
+  100% { transform: translate(0, 0); }
+}
+
+.anim-drift { animation: drift linear infinite; will-change: transform, opacity; }
+.anim-sway { animation: sway ease-in-out infinite; will-change: transform; transform-origin: 50% 100%; }
+.anim-petal-fall { animation: petal-fall linear infinite; will-change: transform, opacity; }
+.anim-petal-float { animation: petal-float ease-in-out infinite; will-change: transform, opacity; }
+.anim-butterfly-a { animation: butterfly-path-a linear infinite; will-change: transform; }
+.anim-butterfly-b { animation: butterfly-path-b linear infinite; will-change: transform; }
+.anim-wing { animation: wing-flap 0.55s ease-in-out infinite; transform-origin: center; }
+.anim-glow-pulse { animation: glow-pulse 3.2s ease-in-out infinite; }
+.anim-ring-pulse { animation: ring-pulse 2.6s ease-out infinite; }
+.anim-cloud { animation: cloud-drift 26s ease-in-out infinite alternate; will-change: transform; }
+.anim-spin-slower { animation: spin-slower 80s linear infinite; will-change: transform; }
+.anim-twinkle { animation: twinkle ease-in-out infinite; will-change: transform, opacity; }
+.anim-shoot { animation: shoot linear infinite; will-change: transform, opacity; }
+.anim-bob { animation: bob 3.4s ease-in-out infinite; will-change: transform; }
+
+.text-shimmer {
+  background: linear-gradient(110deg, #fff6d6 20%, #ffd93b 40%, #fff 50%, #ffd93b 60%, #fff6d6 80%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 6s linear infinite;
+}
+
+.grain::after {
+  content: "";
+  position: absolute; inset: -20%;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grain-shift 1.2s steps(3) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-drift, .anim-sway, .anim-petal-fall, .anim-petal-float,
+  .anim-butterfly-a, .anim-butterfly-b, .anim-wing, .anim-glow-pulse,
+  .anim-ring-pulse, .anim-cloud, .anim-spin-slower, .anim-twinkle,
+  .anim-shoot, .anim-bob,
+  .text-shimmer, .grain::after {
+    animation: none !important;
+  }
+}
